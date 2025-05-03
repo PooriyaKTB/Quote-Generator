@@ -6,34 +6,35 @@ const newQuote = document.getElementById("quote-input");
 const newAuthor = document.getElementById("author-input");
 const submitQuote = document.getElementById("add-quote");
 
-function randomQuote() {
-  quoteText.innerText = pickFromArray(quotes).quote;
-  authorName.textContent = `Author: ${pickFromArray(quotes).author}`;
-};
+// function randomQuote() {
+//   quoteText.innerText = pickFromArray(quotes).quote;
+//   authorName.textContent = `Author: ${pickFromArray(quotes).author}`;
+// };
 
-function pickFromArray(choices) {
-    return choices[Math.floor(Math.random() * choices.length)];
-};
+// function pickFromArray(choices) {
+//     return choices[Math.floor(Math.random() * choices.length);]
+// };
 
-window.onload = randomQuote;
-generateQuote.addEventListener("click", randomQuote);
+// window.onload = randomQuote;
+// generateQuote.addEventListener("click", randomQuote);
 
-const quotes = [
-    {
-      quote: "Life isn't about getting and having, it's about giving and being.",
-      author: "Kevin Kruse",
-    },
-    {
-      quote: "Whatever the mind of man can conceive and believe, it can achieve.",
-      author: "Napoleon Hill",
-    },
-    {
-      quote: "Strive not to be a success, but rather to be of value.",
-      author: "Albert Einstein",
-    },
-    {
-      quote:
-        "Two roads diverged in a wood, and I—I took the one less traveled by, And that has made all the difference.",
-      author: "Robert Frost",
-    }
-];
+async function getData() {
+  fetch("http://127.0.0.1:3000/")
+  .then((response) => {
+    if (!response.ok) throw new Error("Response not OK");
+    return response.text();
+  })
+  .then((text) => {
+    const [quote, author] = text.split("-");
+    document.getElementById("quote").innerText = quote;
+    document.getElementById("author").innerText = `Author: ${author}`;
+  })
+  .catch((err) => {
+    console.error("Fetch error:", err);
+    document.getElementById("quote").innerText = "Fetch error";
+  });
+}
+
+document.getElementById("generate-quote").addEventListener("click", getData);
+
+window.onload = getData;
