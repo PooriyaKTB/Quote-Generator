@@ -36,5 +36,32 @@ async function getData() {
 }
 
 document.getElementById("generate-quote").addEventListener("click", getData);
-
 window.onload = getData;
+
+submitQuote.addEventListener("click", async () => {
+  const quote = newQuote.value.trim();
+  const author = newAuthor.value.trim();
+
+  if (!quote || !author) {
+    alert("Please fill in both quote and author fields.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://127.0.0.1:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ quote, author })
+    });
+
+    if (!response.ok) throw new Error("Server error");
+    alert("Quote added successfully!");
+    newQuote.value = "";
+    newAuthor.value = "";
+  } catch (error) {
+    console.error("Failed to add quote:", error);
+    alert("Failed to add quote");
+  }
+});
