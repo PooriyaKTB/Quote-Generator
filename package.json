@@ -13,5 +13,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PooriyaKTB/Quote-Generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PooriyaKTB/Quote-Generator/issues"
+  },
+  "homepage": "https://github.com/PooriyaKTB/Quote-Generator#readme"
 }

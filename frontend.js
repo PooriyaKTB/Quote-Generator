@@ -5,9 +5,10 @@ const generateQuote = document.getElementById("generate-quote");
 const newQuote = document.getElementById("quote-input");
 const newAuthor = document.getElementById("author-input");
 const submitQuote = document.getElementById("add-quote");
+const serverURL = "https://pooriya-quote-generator-server.hosting.codeyourfuture.io/";
 
 async function getData() {
-  fetch("http://127.0.0.1:3000/")
+  fetch(serverURL)
     .then((response) => {
       if (!response.ok) throw new Error("Response not OK");
       return response.text();
@@ -48,7 +49,7 @@ submitQuote.addEventListener("click", async () => {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:3000/", {
+    const response = await fetch(serverURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
